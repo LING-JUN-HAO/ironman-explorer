@@ -1,0 +1,18 @@
+{
+  "name": "ironman-explorer",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "scrape": "python3 scripts/scrape.py && python3 scripts/scrape_outlines.py && python3 scripts/build_search.py",
+    "postinstall": "nuxt prepare",
+    "deploy": "nuxt generate && wrangler deploy"
+  },
+  "dependencies": {
+    "nuxt": "4.6.1",
+    "vue": "3.5.25",
+    "vue-router": "4.6.3"
+  }
+}

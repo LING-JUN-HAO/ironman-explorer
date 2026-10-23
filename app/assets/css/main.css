@@ -1,0 +1,123 @@
+/* 色票與字體沿用 antonio-ling.com：紙白／墨藍底，粉紅強調。
+   字型自己架、只放必要的子集：霞鶩文楷只含網站名稱那幾個字，內文用系統中文字型（蘋方／微軟正黑），
+   避免下載近 2 MB 的中文網頁字型 */
+@font-face {
+  font-family: "WenKai Brand";
+  src: url("/fonts/wenkai-brand.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/jetbrains-mono-400.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+2013-2014, U+2018-201D;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/jetbrains-mono-600.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+2013-2014, U+2018-201D;
+}
+:root {
+  --paper: #fbfcfd;
+  --wash: #f2f4f8;
+  --line: #e3e7ee;
+  --ink: #17213a;
+  --ink-soft: #5d6779;
+  --accent: #e0517a;
+  --accent-ink: color-mix(in srgb, var(--accent) 78%, var(--ink));
+  --accent-wash: color-mix(in srgb, var(--accent) 10%, var(--paper));
+  /* 獎項語意色，與強調色分開 */
+  --gold: #a8740a;
+  --gold-wash: #fbf1d9;
+  --silver: #4f6283;
+  --silver-wash: #e8edf6;
+  --bronze: #9a5a32;
+  --bronze-wash: #f6e9df;
+  --heart: #3f8a6b;
+  --heart-wash: #e2f2ea;
+  --font-display: "WenKai Brand", "PingFang TC", "Microsoft JhengHei", serif;
+  --font-sans: system-ui, -apple-system, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --radius: .5rem;
+  --site: 72rem;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0e1626; --wash: #142035; --line: #233049; --ink: #e4e8f0; --ink-soft: #97a1b4;
+    --accent: #ff86a5; --accent-ink: color-mix(in srgb, var(--accent) 86%, #fff);
+    --accent-wash: color-mix(in srgb, var(--accent) 14%, var(--paper));
+    --gold: #f0c560; --gold-wash: #2e2714; --silver: #b4c3dd; --silver-wash: #1e2a40;
+    --bronze: #e6a47a; --bronze-wash: #2f2119; --heart: #7fd1ad; --heart-wash: #15302a;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+html { scrollbar-gutter: stable; }
+body {
+  margin: 0;
+  background: var(--paper); color: var(--ink);
+  font-family: var(--font-sans); font-size: 15px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+a:hover { color: var(--accent-ink); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+button, input, select { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+
+.wrap {
+  max-width: var(--site); margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* 共用的膠囊切換鈕 */
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--paper); }
+.seg button { border: 0; background: none; cursor: pointer; padding: .3rem .9rem; border-radius: 999px; color: var(--ink-soft); font-size: .9rem; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+h2.sec {
+  margin: 0 0 .25rem; font-size: 1.4rem; font-weight: 700; letter-spacing: .01em;
+  display: flex; align-items: baseline; gap: .75rem; flex-wrap: wrap; text-wrap: balance;
+}
+h2.sec .meta { font-family: var(--font-sans); font-size: .85rem; font-weight: 400; color: var(--ink-soft); }
+
+/* 卡片 */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 21rem), 1fr)); gap: 1rem; }
+.card {
+  position: relative; min-width: 0; display: flex; flex-direction: column; gap: .55rem;
+  padding: 1rem 1.1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper);
+  transition: border-color .15s, box-shadow .15s, transform .15s;
+}
+.card:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); box-shadow: 0 6px 20px -12px color-mix(in srgb, var(--ink) 40%, transparent); }
+.card.won { background: linear-gradient(180deg, var(--wash), var(--paper) 5rem); }
+.card-top { display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; padding-right: 2rem; min-height: 1.5rem; }
+.card-top .grp { font-family: var(--font-mono); font-size: .75rem; color: var(--ink-soft); }
+.card h3 { margin: 0; font-size: 1.02rem; line-height: 1.45; font-weight: 700; text-wrap: pretty; overflow-wrap: anywhere; }
+.card .desc { margin: 0; color: var(--ink-soft); font-size: .85rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.card-foot { margin-top: auto; display: flex; align-items: center; gap: .75rem; justify-content: space-between; font-size: .82rem; color: var(--ink-soft); min-width: 0; }
+.card-foot .who { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.yr { font-family: var(--font-mono); font-size: .72rem; color: var(--ink-soft); border: 1px solid var(--line); border-radius: 4px; padding: 0 .3rem; }
+
+/* 主題色：元素帶 --hue，淺深色模式各自換算出文字色與底色 */
+.theme-tint {
+  --tint-ink: hsl(var(--hue) 55% 36%);
+  --tint-wash: hsl(var(--hue) 70% 95%);
+  --tint-line: hsl(var(--hue) 45% 80%);
+}
+@media (prefers-color-scheme: dark) {
+  .theme-tint {
+    --tint-ink: hsl(var(--hue) 75% 76%);
+    --tint-wash: hsl(var(--hue) 30% 18%);
+    --tint-line: hsl(var(--hue) 30% 32%);
+  }
+}
+.theme-tint.neutral { --tint-ink: var(--ink-soft); --tint-wash: var(--wash); --tint-line: var(--line); }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

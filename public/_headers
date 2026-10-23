@@ -1,0 +1,10 @@
+# 檔名帶 hash 的建置產物可以永久快取
+/_nuxt/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# 資料重抓後要馬上看得到：每次都向伺服器確認，沒變動只回 304
+/data/*
+  Cache-Control: public, no-cache

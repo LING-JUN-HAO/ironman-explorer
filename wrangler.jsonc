@@ -1,0 +1,12 @@
+{
+  "name": "ironman-explorer",
+  "compatibility_date": "2026-10-01",
+  // 純靜態站：部署 nuxt generate 的輸出
+  "assets": {
+    "directory": "./.output/public",
+    "not_found_handling": "404-page"
+  },
+  "routes": [
+    { "pattern": "ironman.antonio-ling.com", "custom_domain": true }
+  ]
+}
